@@ -41,14 +41,14 @@ grey_calc:
     addiu3 r2 r0 0x0
     li r3 0x1f
     and r2 r3
-    sll r3 0x6
+    sll r3 r3 0x6
     and r1 r3
-    sll r3 0x5
+    sll r3 r3 0x5
     and r0 r3
 
     srl r0 0x0
     srl r0 0x3
-    srl r1 0x6
+    srl r1 r1 0x6
 
     addu r2 r2 r0
     addu r2 r2 r1
@@ -93,7 +93,7 @@ cont:
 sobel_zone1:
     ; #init low_addr
     li r3 0x1
-    sll r3 0x0
+    sll r3 r3 0x0
     addiu r3 0x1
 
 ;; #calc
@@ -104,7 +104,7 @@ cam_zone1_a0:
     ; #PG: a0.pg = 1
     li r4 0x1
     excpg r4
-    sll r3 0x1
+    sll r3 r3 0x1
 
     ; #r2为累加器
     li r2 0x0
@@ -157,17 +157,17 @@ reverse_zone1_a0:
 ; #r2 => r1.r/g/b
 cont_zone1_a0:
     addiu r2 0x8
-    sra r2 0x4
+    sra r2 r2 0x4
     li r1 0x0
-    sll r2 0x5
+    sll r2 r2 0x5
     addu r1 r2 r1
-    srl r2 0x3
+    srl r2 r2 0x3
     addu r1 r2 r1
     srl 0x3
     addu r1 r2 r1
 ; #write back: 
     ; #恢复[r4 r3]
-    sra r3 0x1
+    sra r3 r3 0x1
     li r4 0x4
     ; #写入内存: addr
     excpg r4
@@ -179,7 +179,7 @@ cam_zone1_a1:
     ; #PG: a1.pg = 1
     li r4 0x1
     excpg r4
-    sll r3 0x1
+    sll r3 r3 0x1
     addiu r3 0x1
 
     ; #r2为累加器
@@ -233,23 +233,23 @@ reverse_zone1_a1:
 ; #r2 => r1.r/g/b
 cont_zone1_a1:
     addiu r2 0x8
-    sra r2 0x4
+    sra r2 r2 0x4
     li r1 0x0
-    sll r2 0x5
+    sll r2 r2 0x5
     addu r1 r2 r1
-    srl r2 0x3
+    srl r2 r2 0x3
     addu r1 r2 r1
     srl 0x3
     addu r1 r2 r1
 ; #write back: 
     ; 恢复[r4 r3]
     addiu r3 0xff
-    sra r3 0x1
+    sra r3 r3 0x1
     li r4 0x4
     ; 写入内存: addr
     excpg r4
     lw r3 r2 0x0
-    sll r2 0x0
+    sll r2 r2 0x0
     addu r1 r2 r1
     sw r3 r1 0x0
 
@@ -271,7 +271,7 @@ add1_zone1:
     addiu r3 0x1
 ; #判断：[r4 r3] [4 7f01]
     li r5 0x7f
-    sll r5 0x0
+    sll r5 r5 0x0
     addiu r5 0x1
     cmp r3 r5
     btnez sobel_zone1_loop
@@ -285,7 +285,7 @@ add1_zone1:
 sobel_zone2:
     ; #init low_addr
     li r3 0x81
-    sll r3 0x0
+    sll r3 r3 0x0
     addiu r3 0x1
 
 ;; #calc
@@ -296,7 +296,7 @@ cam_zone2_a0:
     ; #PG = a0.r4 = 2
     li r4 0x2
     excpg r4
-    sll r3 0x1
+    sll r3 r3 0x1
 
     ; #r2为累加器
     li r2 0x0
@@ -349,17 +349,17 @@ reverse_zone2_a0:
 ; #r2 => r1.r/g/b
 cont_zone2_a0:
     addiu r2 0x8
-    sra r2 0x4
+    sra r2 r2 0x4
     li r1 0x0
-    sll r2 0x5
+    sll r2 r2 0x5
     addu r1 r2 r1
-    srl r2 0x3
+    srl r2 r2 0x3
     addu r1 r2 r1
     srl 0x3
     addu r1 r2 r1
 ; #write back: 
     ; #恢复[r4 r3]
-    sra r3 0x1
+    sra r3 r3 0x1
     addiu r0 0x80
     sll r0 0x0
     addu r3 r0 r3
@@ -374,7 +374,7 @@ cam_zone2_a1:
     ; #PG = a1.r4 = 2
     li r4 0x2
     excpg r4
-    sll r3 0x1
+    sll r3 r3 0x1
     addiu r3 0x1
 
     ; #r2为累加器
@@ -428,18 +428,18 @@ reverse_zone2_a1:
 ; #r2 => r1.r/g/b
 cont_zone2_a1:
     addiu r2 0x8
-    sra r2 0x4
+    sra r2 r2 0x4
     li r1 0x0
-    sll r2 0x5
+    sll r2 r2 0x5
     addu r1 r2 r1
-    srl r2 0x3
+    srl r2 r2 0x3
     addu r1 r2 r1
     srl 0x3
     addu r1 r2 r1
 ; #write back: 
     ; #恢复[r4 r3]
     addiu r3 0xff
-    sra r3 0x1
+    sra r3 r3 0x1
     li r0 0x80
     sll r0 0x0
     addu r0 r3 r3
@@ -448,7 +448,7 @@ cont_zone2_a1:
     ; #r2 + r1 写入内存: addr
     excpg r4
     lw r3 r2 0x0
-    sll r2 0x0
+    sll r2 r2 0x0
     addu r1 r2 r1
     sw r3 r1 0x0
 
@@ -470,7 +470,7 @@ add1_zone2:
     addiu r3 0x1
 ; #判断：[r4 r3] [4 ff01]
     li r5 0xff
-    sll r5 0x0
+    sll r5 r5 0x0
     addiu r5 0x1
     cmp r3 r5
     btnez sobel_zone2_loop
@@ -484,7 +484,7 @@ add1_zone2:
 sobel_zone3:
     ; #init low_addr
     li r3 0x1
-    sll r3 0x0
+    sll r3 r3 0x0
     addiu r3 0x1
 
 ;; #calc
@@ -495,7 +495,7 @@ cam_zone3_a0:
     ; #PG = a0.r4 = 3
     li r4 0x3
     excpg r4
-    sll r3 0x1
+    sll r3 r3 0x1
 
     ; #r2为累加器
     li r2 0x0
@@ -548,18 +548,18 @@ reverse_zone3_a0:
 ; #r2 => r1.r/g/b
 cont_zone3_a0:
     addiu r2 0x8
-    sra r2 0x4
+    sra r2 r2 0x4
     li r1 0x0
-    sll r2 0x5
+    sll r2 r2 0x5
     addu r1 r2 r1
-    srl r2 0x3
+    srl r2 r2 0x3
     addu r1 r2 r1
     srl 0x3
     addu r1 r2 r1
 ; #write back: 
     ; #恢复[r4 r3]
     ; #addr.r3 = a0.r3 >> 1
-    sra r3 0x1
+    sra r3 r3 0x1
     li r4 0x5
     ; #写入内存: addr
     excpg r4
@@ -571,7 +571,7 @@ cam_zone3_a1:
     ; #PG = a1.r4 = 3
     li r4 0x3
     excpg r4
-    sll r3 0x1
+    sll r3 r3 0x1
     addiu r3 0x1
 
     ; #r2为累加器
@@ -625,24 +625,24 @@ reverse_zone3_a1:
 ; #r2 => r1.r/g/b
 cont_zone3_a1:
     addiu r2 0x8
-    sra r2 0x4
+    sra r2 r2 0x4
     li r1 0x0
-    sll r2 0x5
+    sll r2 r2 0x5
     addu r1 r2 r1
-    srl r2 0x3
+    srl r2 r2 0x3
     addu r1 r2 r1
     srl 0x3
     addu r1 r2 r1
 ; #write back: 
     ; #恢复[r4 r3]
     addiu r3 0xff
-    sra r3 0x1
+    sra r3 r3 0x1
     li r4 0x5
     ; #读出之前偶数像素rgb到r2
     ; #r2 + r1 写入内存: addr
     excpg r4
     lw r3 r2 0x0
-    sll r2 0x0
+    sll r2 r2 0x0
     addu r1 r2 r1
     sw r3 r1 0x0
 
@@ -664,7 +664,7 @@ add1_zone3:
     addiu r3 0x1
 ; #判断：[r4 r3] [4 ff01]
     li r5 0x7f
-    sll r5 0x0
+    sll r5 r5 0x0
     addiu r5 0x1
     cmp r3 r5
     btnez sobel_zone3_loop
